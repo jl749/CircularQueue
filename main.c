@@ -39,15 +39,15 @@ int peak(){
 }
 
 void printAll(){
-    int i,size=0;
-    if(front<rear)
-        size=rear-front;
-    else if(front>rear)
-        size=(MAX_SIZE)-front+rear;
+    int i;
     fputs("queue ",stdout); printf("(front=%d, rear=%d)",front,rear);
-    for(i=0;i<size;i++){
-        printf("%d ",queue[(front+1+i)%MAX_SIZE]); //+1 because front always left empty to distinguish full,empty queue
+    for(i=(front+1)%MAX_SIZE ; i!=rear+1 ; i=(i+1)%MAX_SIZE){
+        printf("%d ",queue[i]); //+1 because front always left empty to distinguish full,empty queue
     }puts("");
+}
+
+void clear(){
+    front=rear=0;
 }
 
 int main()
@@ -56,6 +56,7 @@ int main()
     puts("1.push");
     puts("2.pop");
     puts("3.print queue");
+    puts("4.empty queue");
     puts("-1 to quit");
     while(slct!=-1){
         scanf("%d%*c",&slct);
@@ -68,6 +69,9 @@ int main()
                 break;
             case 3:
                 printAll();
+                break;
+            case 4:
+                clear();
                 break;
         }
     }
